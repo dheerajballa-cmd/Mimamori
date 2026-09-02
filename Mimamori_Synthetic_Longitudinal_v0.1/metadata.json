@@ -1,0 +1,18 @@
+{
+  "dataset_name": "Mimamori Synthetic Longitudinal Causal Dataset",
+  "version": "0.1-prototype",
+  "random_seed": 42,
+  "participants": 100,
+  "days_per_participant": 180,
+  "observations": 18000,
+  "purpose": "Controlled longitudinal forecasting, causal attribution, and counterfactual evaluation.",
+  "important_note": "Synthetic data only. Values are generated for model-development experiments and are not clinical measurements.",
+  "causal_scenarios": [
+    "stable",
+    "sleep_driven",
+    "activity_driven",
+    "routine_driven",
+    "medication_driven",
+    "mixed"
+  ]
+}

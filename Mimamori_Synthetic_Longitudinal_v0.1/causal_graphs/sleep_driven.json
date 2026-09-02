@@ -1,0 +1,41 @@
+{
+  "scenario": "sleep_driven",
+  "edges": [
+    [
+      "sleep_disruption",
+      "sleep_quality"
+    ],
+    [
+      "sleep_disruption",
+      "sleep_duration"
+    ],
+    [
+      "sleep_disruption",
+      "fatigue"
+    ],
+    [
+      "fatigue",
+      "activity_level"
+    ],
+    [
+      "activity_level",
+      "gait_speed"
+    ],
+    [
+      "activity_level",
+      "gait_variability"
+    ],
+    [
+      "gait_variability",
+      "balance_score"
+    ],
+    [
+      "balance_score",
+      "frailty_score"
+    ],
+    [
+      "frailty_score",
+      "fall_risk"
+    ]
+  ]
+}

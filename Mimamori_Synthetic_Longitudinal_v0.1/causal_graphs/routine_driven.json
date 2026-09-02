@@ -1,0 +1,25 @@
+{
+  "scenario": "routine_driven",
+  "edges": [
+    [
+      "routine_deviation",
+      "activity_level"
+    ],
+    [
+      "activity_level",
+      "gait_speed"
+    ],
+    [
+      "gait_speed",
+      "balance_score"
+    ],
+    [
+      "balance_score",
+      "frailty_score"
+    ],
+    [
+      "frailty_score",
+      "fall_risk"
+    ]
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "scenario": "medication_driven",
+  "edges": [
+    [
+      "medication_deviation",
+      "fatigue"
+    ],
+    [
+      "fatigue",
+      "activity_level"
+    ],
+    [
+      "activity_level",
+      "gait_speed"
+    ],
+    [
+      "gait_speed",
+      "balance_score"
+    ],
+    [
+      "balance_score",
+      "frailty_score"
+    ],
+    [
+      "frailty_score",
+      "fall_risk"
+    ]
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "scenario": "stable",
+  "edges": [
+    [
+      "baseline_state",
+      "daily_state"
+    ],
+    [
+      "daily_state",
+      "fall_risk"
+    ]
+  ]
+}

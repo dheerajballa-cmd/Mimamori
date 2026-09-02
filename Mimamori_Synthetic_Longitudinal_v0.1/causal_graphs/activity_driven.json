@@ -1,0 +1,29 @@
+{
+  "scenario": "activity_driven",
+  "edges": [
+    [
+      "activity_stressor",
+      "activity_level"
+    ],
+    [
+      "activity_level",
+      "gait_speed"
+    ],
+    [
+      "activity_level",
+      "gait_variability"
+    ],
+    [
+      "gait_variability",
+      "balance_score"
+    ],
+    [
+      "balance_score",
+      "frailty_score"
+    ],
+    [
+      "frailty_score",
+      "fall_risk"
+    ]
+  ]
+}

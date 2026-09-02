@@ -1,0 +1,63 @@
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.hypothesis/
+.coverage
+htmlcov/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE / OS metadata
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Experiment Tracking & Logs
+wandb/
+mlruns/
+logs/
+*.log
+.system_generated/
+
+# Model Checkpoints & Serialized Weights
+checkpoints/
+*.pt
+*.pth
+*.onnx
+*.pkl
+*.joblib
+*.bin
+*.tar.gz
+
+# Datasets & Large Data Files (Ignore raw datasets, preserve code/READMEs)
+data/SisFall_dataset/
+KFall+elderly_add-in/
+NHATS/
+eHomeSeniors dataset/
+Sounds_of_Home/
+CIRDO/
+TF-66.xlsx
+*.dta
+*.raw
+
+# Allow specific data documentation and loader scripts
+!data/loaders/
+!data/splits.py
+!data/README_*.md
+!preprocess/
+!tests/
+!scripts/

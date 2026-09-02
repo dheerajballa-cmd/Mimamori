@@ -1,0 +1,37 @@
+{
+  "scenario": "mixed",
+  "edges": [
+    [
+      "sleep_disruption",
+      "fatigue"
+    ],
+    [
+      "medication_deviation",
+      "fatigue"
+    ],
+    [
+      "routine_deviation",
+      "activity_level"
+    ],
+    [
+      "fatigue",
+      "activity_level"
+    ],
+    [
+      "activity_level",
+      "gait_speed"
+    ],
+    [
+      "gait_speed",
+      "balance_score"
+    ],
+    [
+      "balance_score",
+      "frailty_score"
+    ],
+    [
+      "frailty_score",
+      "fall_risk"
+    ]
+  ]
+}
