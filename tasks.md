@@ -14,19 +14,19 @@ This plan builds Mimamori from repo scaffold to an ablation-backed, demoable pro
 
 ### Epic 1: Repo Scaffold & Environment
 
-- [ ] 1.1 Create repo structure (`data/`, `pretrain/`, `forecast/`, `causal/`, `intervene/`, `feedback/`, `eval/`, `edge/`, `dashboard/`, `configs/`)
-- [ ] 1.2 Set up environment: PyTorch, Transformers, PyTorch Lightning, DoWhy, causal-learn, scikit-learn, onnx/onnxruntime, netcal, outlines, streamlit
-- [ ] 1.3 Initialize `wandb` (or `mlflow`) project — required before any training run, not added later
-- [ ] 1.4 Checkpoint — Verify environment reproducibility (`pip freeze` pinned, fresh-venv smoke test)
+- [x] 1.1 Create repo structure (`data/`, `pretrain/`, `forecast/`, `causal/`, `intervene/`, `feedback/`, `eval/`, `edge/`, `dashboard/`, `configs/`)
+- [x] 1.2 Set up environment: PyTorch, Transformers, PyTorch Lightning, DoWhy, causal-learn, scikit-learn, onnx/onnxruntime, netcal, outlines, streamlit
+- [x] 1.3 Initialize `wandb` (or `mlflow`) project — required before any training run, not added later
+- [x] 1.4 Checkpoint — Verify environment reproducibility (`pip freeze` pinned, fresh-venv smoke test)
 
 ### Epic 2: Dataset Acquisition & Access
 
-- [ ] 2.1 Acquire and license-check **SisFall**, **KFall**, **KFall elderly add-in** (IMU)
-- [ ] 2.2 Acquire and license-check **NHATS** + **NHATS accelerometry** — confirm public-use vs. restricted-access files; file a data use agreement if the accelerometry sub-study requires it
-- [ ] 2.3 Acquire **eHomeSeniors**, **Sounds of Home**, **Thermal Fall 66**, **CIRDO**
-- [ ] 2.4 Write a per-dataset `data/README_<dataset>.md` documenting license, modality, subject count/demographics, and known limitations (age skew, lab-only sessions, etc.)
-- [ ] 2.5 Define and document a **subject-level split protocol** (`data/splits.py`) applied uniformly across SisFall, KFall, KFall elderly add-in, Thermal Fall 66, CIRDO, and Sounds of Home — splitting by window/session instead of by subject leaks a subject's gait/posture/voice signature across train and test and silently inflates every downstream metric. This protocol is what Epics 3, 4, 5, 8, and 10 must all call, not re-implement.
-- [ ] 2.6 Checkpoint — All datasets loadable via a common `data/loaders/` interface returning raw samples, with subject-level train/val/test assignments pre-computed and frozen before any feature extraction begins
+- [x] 2.1 Acquire and license-check **SisFall**, **KFall**, **KFall elderly add-in** (IMU)
+- [x] 2.2 Acquire and license-check **NHATS** + **NHATS accelerometry** — confirm public-use vs. restricted-access files; file a data use agreement if the accelerometry sub-study requires it
+- [x] 2.3 Acquire **eHomeSeniors**, **Sounds of Home**, **Thermal Fall 66**, **CIRDO**
+- [x] 2.4 Write a per-dataset `data/README_<dataset>.md` documenting license, modality, subject count/demographics, and known limitations (age skew, lab-only sessions, etc.)
+- [x] 2.5 Define and document a **subject-level split protocol** (`data/splits.py`) applied uniformly across SisFall, KFall, KFall elderly add-in, Thermal Fall 66, CIRDO, and Sounds of Home — splitting by window/session instead of by subject leaks a subject's gait/posture/voice signature across train and test and silently inflates every downstream metric. This protocol is what Epics 3, 4, 5, 8, and 10 must all call, not re-implement.
+- [x] 2.6 Checkpoint — All datasets loadable via a common `data/loaders/` interface returning raw samples, with subject-level train/val/test assignments pre-computed and frozen before any feature extraction begins
 
 ---
 
@@ -34,16 +34,16 @@ This plan builds Mimamori from repo scaffold to an ablation-backed, demoable pro
 
 ### Epic 3: Gait/IMU Feature Extraction
 
-- [ ] 3.1 Build `preprocess/gait.py` — resample to 100Hz, 5–10s windows, 50% overlap
-- [ ] 3.2 Extract cadence, stride variability, sway index from **SisFall**
-- [ ] 3.3 Validate feature extractor generalizes to **KFall** and **KFall elderly add-in** (cross-dataset check), using the subject-level splits from 2.5
-- [ ] 3.4 Write unit tests for windowing and feature extraction edge cases (short sessions, sensor dropout)
+- [x] 3.1 Build `preprocess/gait.py` — resample to 100Hz, 5–10s windows, 50% overlap
+- [x] 3.2 Extract cadence, stride variability, sway index from **SisFall**
+- [x] 3.3 Validate feature extractor generalizes to **KFall** and **KFall elderly add-in** (cross-dataset check), using the subject-level splits from 2.5
+- [x] 3.4 Write unit tests for windowing and feature extraction edge cases (short sessions, sensor dropout)
 
 ### Epic 4: Thermal Posture/Fall Extraction
 
-- [ ] 4.1 Build `preprocess/thermal.py` — silhouette/posture classification from low-res thermal frames
-- [ ] 4.2 Train on **Thermal Fall 66**
-- [ ] 4.3 Cross-validate on **CIRDO**; log generalization gap explicitly (this is a named risk in ARCHITECTURE.md §9)
+- [x] 4.1 Build `preprocess/thermal.py` — silhouette/posture classification from low-res thermal frames
+- [x] 4.2 Train on **Thermal Fall 66**
+- [x] 4.3 Cross-validate on **CIRDO**; log generalization gap explicitly (this is a named risk in ARCHITECTURE.md §9)
 
 ### Epic 5: Ambient Audio Event Classification
 
@@ -53,34 +53,34 @@ This plan builds Mimamori from repo scaffold to an ablation-backed, demoable pro
 
 ### Epic 6: Daily/Weekly Feature Aggregation
 
-- [ ] 6.1 Define shared `DailyFeatureVector` schema (per ARCHITECTURE.md §3)
-- [ ] 6.2 Build `preprocess/aggregate.py` — merge gait + thermal + audio outputs into daily vectors
-- [ ] 6.3 Adapt **eHomeSeniors** multi-day sensor logs into the same schema
-- [ ] 6.4 Adapt **NHATS** + **NHATS accelerometry** longitudinal records into the same schema
-- [ ] 6.5 Derive `sleep_proxy` from NHATS self-reported sleep items + audio-inferred nighttime activity (**Sounds of Home**) — no dataset measures sleep directly, so document this as a lower-confidence feature (ARCHITECTURE.md §9)
-- [ ] 6.6 Checkpoint — One unified daily-feature dataset spanning all sources, schema-validated
+- [x] 6.1 Define shared `DailyFeatureVector` schema (per ARCHITECTURE.md §3)
+- [x] 6.2 Build `preprocess/aggregate.py` — merge gait + thermal + audio outputs into daily vectors
+- [x] 6.3 Adapt **eHomeSeniors** multi-day sensor logs into the same schema
+- [x] 6.4 Adapt **NHATS** + **NHATS accelerometry** longitudinal records into the same schema
+- [x] 6.5 Derive `sleep_proxy` from NHATS self-reported sleep items + audio-inferred nighttime activity (**Sounds of Home**) — no dataset measures sleep directly, so document this as a lower-confidence feature (ARCHITECTURE.md §9)
+- [x] 6.6 Checkpoint — One unified daily-feature dataset spanning all sources, schema-validated
 
 ### Epic 6b: Outputs & Verification (Stage 1 — Preprocessing)
 
-- [ ] 6b.1 Save datasets to `/data/processed/` with exact filenames:
+- [x] 6b.1 Save datasets to `/data/processed/` with exact filenames:
   - `daily_features_nhats.pkl` (NHATS + accelerometry aggregated)
   - `daily_features_ehome.pkl` (eHomeSeniors in same schema)
   - `sessions_sisfall_kfall.pkl` (SisFall/KFall synthetic weeks)
   - `splits.json` (subject-level train/val/test assignments, frozen before feature extraction)
   - `feature_schema.json` (DailyFeatureVector spec)
-- [ ] 6b.2 Create `data/verify_preprocessing.py` that checks:
+- [x] 6b.2 Create `data/verify_preprocessing.py` that checks:
   - File existence and sizes
   - dtypes and shapes match schema
   - NaN counts (must be <5%)
   - t-SNE plot colored by dataset source (should show longitudinal vs. lab-trial clusters)
-- [ ] 6b.3 Run `python data/verify_preprocessing.py`; if any check fails, STOP and debug
-- [ ] 6b.4 Log to wandb: `feature_distribution_plots.png`, `nan_counts.json`, `sequence_length_stats.json`
-- [ ] 6b.5 Create and commit `data/PREPROCESSING_REPORT.md` documenting:
+- [x] 6b.3 Run `python data/verify_preprocessing.py`; if any check fails, STOP and debug
+- [x] 6b.4 Log to wandb: `feature_distribution_plots.png`, `nan_counts.json`, `sequence_length_stats.json`
+- [x] 6b.5 Create and commit `data/PREPROCESSING_REPORT.md` documenting:
   - Total sequences per dataset
   - Sequence lengths and shapes
   - Any missing values and how they were handled
   - Cross-dataset generalization gaps (Thermal Fall 66 vs. CIRDO)
-- [ ] 6b.6 Checkpoint — All files exist, verification passes, report is complete before proceeding to pretraining
+- [x] 6b.6 Checkpoint — All files exist, verification passes, report is complete before proceeding to pretraining
 
 ---
 
@@ -88,37 +88,37 @@ This plan builds Mimamori from repo scaffold to an ablation-backed, demoable pro
 
 ### Epic 7: Masked Sequence Pretraining
 
-- [ ] 7.1 Implement PatchTST-style encoder (`pretrain/model.py`) via `transformers.PatchTSTModel`
-- [ ] 7.2 Implement masked-patch reconstruction objective (30–40% masking) in `pretrain/train.py`
-- [ ] 7.3 Pretrain primarily on **NHATS** + **NHATS accelerometry**; use **eHomeSeniors** as secondary corpus
-- [ ] 7.4 Log training curves and reconstruction loss to `wandb`
-- [ ] 7.5 Checkpoint — Sanity check: cluster embeddings by NHATS functional-status labels (unsupervised); verify separation before proceeding (ARCHITECTURE.md §5). **Do not proceed to Week 5 until this passes.**
+- [x] 7.1 Implement PatchTST-style encoder (`pretrain/model.py`) via `transformers.PatchTSTModel`
+- [x] 7.2 Implement masked-patch reconstruction objective (30–40% masking) in `pretrain/train.py`
+- [x] 7.3 Pretrain primarily on **NHATS** + **NHATS accelerometry**; use **eHomeSeniors** as secondary corpus
+- [x] 7.4 Log training curves and reconstruction loss to `wandb`
+- [x] 7.5 Checkpoint — Sanity check: cluster embeddings by NHATS functional-status labels (unsupervised); verify separation before proceeding (ARCHITECTURE.md §5). **Do not proceed to Week 5 until this passes.**
 
 ### Epic 7b: Outputs & Verification (Stage 2 — Pretraining)
 
-- [ ] 7b.1 Save encoder to `/pretrain/checkpoints/encoder_best.pt`
-- [ ] 7b.2 Save training metadata to `/pretrain/checkpoints/pretraining_metadata.json` containing:
+- [x] 7b.1 Save encoder to `/pretrain/checkpoints/encoder_best.pt`
+- [x] 7b.2 Save training metadata to `/pretrain/checkpoints/pretraining_metadata.json` containing:
   - Final reconstruction loss value
   - Number of training epochs
   - Learning rate, batch size, masking ratio
   - Dataset sizes (NHATS, eHomeSeniors)
-- [ ] 7b.3 Create `scripts/verify_stage_2.py` that:
+- [x] 7b.3 Create `scripts/verify_stage_2.py` that:
   - Loads encoder and computes embeddings on NHATS test set
   - Computes silhouette score against functional-status labels
   - Asserts `silhouette_score > 0.3`
   - Generates t-SNE/UMAP plot colored by status and saves to `/pretrain/checkpoints/embeddings_by_status.png`
-- [ ] 7b.4 Run `python scripts/verify_stage_2.py`; if silhouette < 0.3, STOP and debug pretraining
-- [ ] 7b.5 Log to wandb artifacts:
+- [x] 7b.4 Run `python scripts/verify_stage_2.py`; if silhouette < 0.3, STOP and debug pretraining
+- [x] 7b.5 Log to wandb artifacts:
   - Encoder weights (`encoder_best.pt`)
   - `pretraining_loss_curve.png` (loss over epochs)
   - `embeddings_by_status.png` (t-SNE/UMAP)
   - `pretraining_metadata.json`
-- [ ] 7b.6 Create and commit `pretrain/PRETRAINING_REPORT.md` documenting:
+- [x] 7b.6 Create and commit `pretrain/PRETRAINING_REPORT.md` documenting:
   - Final reconstruction loss
   - Silhouette score value
   - Embedding dimensionality
   - Whether NHATS subgroups separate (must be Yes)
-- [ ] 7b.7 Checkpoint — Encoder saved, silhouette > 0.3, report complete. Do NOT proceed to forecasting (Week 5) until this passes.
+- [x] 7b.7 Checkpoint — Encoder saved, silhouette > 0.3, report complete. Do NOT proceed to forecasting (Week 5) until this passes.
 
 ---
 

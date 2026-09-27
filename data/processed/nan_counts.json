@@ -1,0 +1,60 @@
+{
+  "global_nan_pct": {
+    "gait_cadence": 99.08,
+    "stride_variability": 99.08,
+    "sway_index": 99.08,
+    "steps_per_day": 90.95,
+    "active_minutes_per_day": 90.93,
+    "total_activity_counts": 90.93,
+    "posture_fall_events": 99.98,
+    "posture_instability_score": 99.98,
+    "audio_routine_score": 100.0,
+    "audio_distress_events": 100.0,
+    "sleep_proxy": 100.0,
+    "routine_deviation": 89.62
+  },
+  "per_source_nan_pct": {
+    "ehome": {
+      "gait_cadence": 100.0,
+      "stride_variability": 100.0,
+      "sway_index": 100.0,
+      "steps_per_day": 100.0,
+      "active_minutes_per_day": 100.0,
+      "total_activity_counts": 100.0,
+      "posture_fall_events": 0.0,
+      "posture_instability_score": 0.0,
+      "audio_routine_score": 100.0,
+      "audio_distress_events": 100.0,
+      "sleep_proxy": 100.0,
+      "routine_deviation": 100.0
+    },
+    "nhats": {
+      "gait_cadence": 100.0,
+      "stride_variability": 100.0,
+      "sway_index": 100.0,
+      "steps_per_day": 90.87,
+      "active_minutes_per_day": 90.85,
+      "total_activity_counts": 90.85,
+      "posture_fall_events": 100.0,
+      "posture_instability_score": 100.0,
+      "audio_routine_score": 100.0,
+      "audio_distress_events": 100.0,
+      "sleep_proxy": 100.0,
+      "routine_deviation": 89.52
+    },
+    "sisfall_kfall": {
+      "gait_cadence": 0.0,
+      "stride_variability": 0.0,
+      "sway_index": 0.0,
+      "steps_per_day": 100.0,
+      "active_minutes_per_day": 100.0,
+      "total_activity_counts": 100.0,
+      "posture_fall_events": 100.0,
+      "posture_instability_score": 100.0,
+      "audio_routine_score": 100.0,
+      "audio_distress_events": 100.0,
+      "sleep_proxy": 100.0,
+      "routine_deviation": 100.0
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "description": "DailyFeatureVector canonical schema for Mimamori pipeline",
+  "fields": {
+    "subject_id": {"dtype": "str", "source": "all", "required": true, "confidence": "high"},
+    "date": {"dtype": "str", "format": "YYYY-MM-DD", "source": "all", "required": true, "confidence": "high"},
+    "source": {"dtype": "str", "values": ["nhats", "ehome", "sisfall_kfall", "synthetic"], "required": true, "confidence": "high"},
+    "round": {"dtype": "float", "source": "nhats", "required": false, "confidence": "high", "note": "NHATS survey round (1-14)"},
+
+    "gait_cadence": {"dtype": "float", "unit": "steps/min", "expected_range": [0, 180], "source": "sisfall_kfall,nhats_accel", "required": false, "confidence": "high"},
+    "stride_variability": {"dtype": "float", "unit": "seconds_std", "expected_range": [0, 5], "source": "sisfall_kfall", "required": false, "confidence": "high"},
+    "sway_index": {"dtype": "float", "unit": "deg/s_rms", "expected_range": [0, 50], "source": "sisfall_kfall", "required": false, "confidence": "high"},
+    "steps_per_day": {"dtype": "float", "unit": "steps", "expected_range": [0, 30000], "source": "nhats_accel,ehome", "required": false, "confidence": "medium"},
+    "active_minutes_per_day": {"dtype": "float", "unit": "minutes", "expected_range": [0, 1440], "source": "nhats_accel", "required": false, "confidence": "medium"},
+    "total_activity_counts": {"dtype": "float", "unit": "counts", "expected_range": [0, null], "source": "nhats_accel", "required": false, "confidence": "medium"},
+
+    "posture_fall_events": {"dtype": "int", "unit": "count/day", "expected_range": [0, 100], "source": "ehome,sisfall_kfall", "required": false, "confidence": "medium"},
+    "posture_instability_score": {"dtype": "float", "unit": "celsius_delta_rms", "expected_range": [0, 50], "source": "ehome", "required": false, "confidence": "medium"},
+
+    "audio_routine_score": {"dtype": "float", "unit": "probability", "expected_range": [0, 1], "source": "sounds_of_home", "required": false, "confidence": "medium"},
+    "audio_distress_events": {"dtype": "int", "unit": "count/day", "expected_range": [0, 500], "source": "sounds_of_home", "required": false, "confidence": "medium"},
+
+    "sleep_proxy": {"dtype": "float", "unit": "normalized_score", "expected_range": [0, 1], "source": "nhats_survey,sounds_of_home", "required": false, "confidence": "low", "note": "LOWER CONFIDENCE: derived from NHATS self-report sleep items + nighttime Sounds of Home audio inactivity. No direct sleep sensor. See ARCHITECTURE.md §9."},
+    "routine_deviation": {"dtype": "float", "unit": "normalized_std", "expected_range": [0, null], "source": "all", "required": false, "confidence": "medium"},
+
+    "data_quality": {"dtype": "float", "unit": "fraction", "expected_range": [0, 1], "source": "all", "required": true, "confidence": "high", "note": "Fraction of schema fields that are non-null for this record"},
+    "worries_about_falling": {"dtype": "float", "unit": "binary_1yes_2no", "source": "nhats_survey", "required": false, "confidence": "medium"},
+    "had_multiple_falls": {"dtype": "float", "unit": "binary", "source": "nhats_survey", "required": false, "confidence": "medium"}
+  },
+  "nan_threshold": 0.05,
+  "sources": {
+    "nhats": "NHATS SP survey + accelerometry summary (Rounds 11-14)",
+    "ehome": "eHomeSeniors Melexis Grid-Eye 8x8 thermal stream (Groups 1-2, Sessions 1-3)",
+    "sisfall_kfall": "SisFall + KFall IMU gait windows, bridged into synthetic weekly sequences",
+    "synthetic": "Mimamori Synthetic Longitudinal Causal Dataset v0.1"
+  }
+}

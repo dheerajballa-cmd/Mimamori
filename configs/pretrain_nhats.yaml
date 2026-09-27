@@ -1,0 +1,74 @@
+# Mimamori — Masked Sequence Pretraining Config (Epic 7)
+# Used by: python -m pretrain.train --config configs/pretrain_nhats.yaml
+
+# ─── Data ────────────────────────────────────────────────────────────────────
+data:
+  nhats_path: "data/processed/daily_features_nhats.pkl"
+  ehome_path: "data/processed/daily_features_ehome.pkl"
+  splits_path: "data/processed/splits.json"
+
+  # Features fed to the encoder (numeric; NaNs filled with feature mean)
+  feature_cols:
+    - steps_per_day
+    - active_minutes_per_day
+    - total_activity_counts
+    - routine_deviation
+    - data_quality
+
+  # Functional-status label column for silhouette check (Epic 7.5)
+  status_col: "worries_about_falling"
+
+  # Sequence construction
+  sequence_col: "subject_id"
+  time_col: "round"
+  max_seq_len: 4
+  min_seq_len: 2
+
+  ehome_sample_weight: 0.2
+
+# ─── Model ────────────────────────────────────────────────────────────────────
+model:
+  num_input_channels: 5
+  context_length: 4
+  patch_length: 1
+  patch_stride: 1
+
+  d_model: 128
+  num_attention_heads: 4
+  num_hidden_layers: 3
+  ffn_dim: 256
+  dropout: 0.1
+  head_dropout: 0.1
+
+  mask_ratio: 0.35
+
+  embedding_dim: 128
+
+# ─── Training ─────────────────────────────────────────────────────────────────
+training:
+  max_epochs: 60
+  batch_size: 256
+  learning_rate: 3.0e-4
+  weight_decay: 1.0e-5
+  lr_scheduler: "cosine"
+  warmup_epochs: 5
+
+  val_fraction: 0.15
+  seed: 42
+  num_workers: 0
+  precision: "32-true"
+
+# ─── Checkpointing ────────────────────────────────────────────────────────────
+checkpoint:
+  dirpath: "pretrain/checkpoints"
+  filename: "encoder_best"
+  monitor: "val/reconstruction_loss"
+  mode: "min"
+  save_top_k: 1
+
+# ─── wandb ────────────────────────────────────────────────────────────────────
+wandb:
+  project: "mimamori"
+  name: "epic7-pretrain-nhats"
+  tags: ["epic7", "pretraining", "patchtst", "nhats"]
+  log_every_n_steps: 10

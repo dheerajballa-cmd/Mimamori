@@ -1,0 +1,29 @@
+{
+  "nhats": {
+    "total_rows": 26396,
+    "n_subjects": 9829,
+    "seq_len_mean": 2.69,
+    "seq_len_median": 3.0,
+    "seq_len_min": 1,
+    "seq_len_max": 4,
+    "seq_len_std": 1.01
+  },
+  "ehome": {
+    "total_rows": 6,
+    "n_subjects": 2,
+    "seq_len_mean": 3.0,
+    "seq_len_median": 3.0,
+    "seq_len_min": 3,
+    "seq_len_max": 3,
+    "seq_len_std": 0.0
+  },
+  "sisfall_kfall": {
+    "total_rows": 244,
+    "n_subjects": 10,
+    "seq_len_mean": 24.4,
+    "seq_len_median": 24.5,
+    "seq_len_min": 10,
+    "seq_len_max": 38,
+    "seq_len_std": 14.34
+  }
+}
