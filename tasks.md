@@ -126,26 +126,26 @@ This plan builds Mimamori from repo scaffold to an ablation-backed, demoable pro
 
 ### Epic 8: Forecasting Head Fine-Tuning
 
-- [ ] 8.1 Attach quantile-regression forecasting head (short: 3–7 day, long: 4–8 week) to pretrained encoder
-- [ ] 8.2 **Resolve the granularity mismatch before writing any fine-tuning code**: the Epic 7 encoder expects daily/weekly aggregated sequences, but SisFall/KFall/KFall-elderly are single-session lab trials with no multi-day structure. Adopt the explicit workaround — concatenate each subject's trial windows in sequence and treat the result as a short synthetic "week" — and implement it as a documented, named transform (`forecast/session_to_sequence.py`), not an ad hoc reshape buried in the training script. State this workaround plainly in the writeup (§16.2) as a known limitation, not an implementation detail.
-- [ ] 8.3 Construct proxy supervised labels from **SisFall**/**KFall**/**KFall elderly add-in** (fall-vs-ADL, gait-severity), applied to the synthetic-week sequences from 8.2, using the subject-level splits from 2.5
-- [ ] 8.4 Fine-tune with PyTorch Lightning; checkpoint best model by validation AUPRC
-- [ ] 8.5 Implement baseline: logistic regression / XGBoost on same-day features, no pretraining, no temporal structure
-- [ ] 8.6 Implement confidence-gated abstention — below a calibrated confidence threshold, output "not confident enough to flag" instead of a forced risk score (this was named as a safety principle in the flagship doc but had no build task until now)
-- [ ] 8.7 Export a `risk_delta` (change in forecasted risk between consecutive forecasting windows) as a first-class output of the forecasting head — this is the exact quantity Epic 10.3's causal ranking consumes, and currently no task produces it explicitly
-- [ ] 8.8 Checkpoint — Fine-tuned model must beat the static baseline on the proxy task; debug here before proceeding, not later
+- [x] 8.1 Attach quantile-regression forecasting head (short: 3–7 day, long: 4–8 week) to pretrained encoder
+- [x] 8.2 **Resolve the granularity mismatch before writing any fine-tuning code**: the Epic 7 encoder expects daily/weekly aggregated sequences, but SisFall/KFall/KFall-elderly are single-session lab trials with no multi-day structure. Adopt the explicit workaround — concatenate each subject's trial windows in sequence and treat the result as a short synthetic "week" — and implement it as a documented, named transform (`forecast/session_to_sequence.py`), not an ad hoc reshape buried in the training script. State this workaround plainly in the writeup (§16.2) as a known limitation, not an implementation detail.
+- [x] 8.3 Construct proxy supervised labels from **SisFall**/**KFall**/**KFall elderly add-in** (fall-vs-ADL, gait-severity), applied to the synthetic-week sequences from 8.2, using the subject-level splits from 2.5
+- [x] 8.4 Fine-tune with PyTorch Lightning; checkpoint best model by validation AUPRC
+- [x] 8.5 Implement baseline: logistic regression / XGBoost on same-day features, no pretraining, no temporal structure
+- [x] 8.6 Implement confidence-gated abstention — below a calibrated confidence threshold, output "not confident enough to flag" instead of a forced risk score (this was named as a safety principle in the flagship doc but had no build task until now)
+- [x] 8.7 Export a `risk_delta` (change in forecasted risk between consecutive forecasting windows) as a first-class output of the forecasting head — this is the exact quantity Epic 10.3's causal ranking consumes, and currently no task produces it explicitly
+- [x] 8.8 Checkpoint — Fine-tuned model must beat the static baseline on the proxy task; debug here before proceeding, not later
 
 ### Epic 8b: Outputs & Verification (Stage 3 — Forecasting)
 
-- [ ] 8b.1 Save models to `/forecast/checkpoints/`:
+- [x] 8b.1 Save models to `/forecast/checkpoints/`:
   - `forecaster_best.pt` (encoder + forecasting head)
   - `baseline_xgboost.pkl` (static baseline for comparison)
   - `forecast_metadata.json` (architecture, hyperparams, training time)
-- [ ] 8b.2 Generate and save evaluation plots:
+- [x] 8b.2 Generate and save evaluation plots:
   - `calibration_curve_short_horizon.png` (reliability diagram for short-horizon forecast)
   - `calibration_curve_long_horizon.png` (reliability diagram for long-horizon forecast)
   - `auroc_comparison.png` (bar chart: forecaster vs. baseline AUROC per horizon)
-- [ ] 8b.3 Save metrics to `/forecast/checkpoints/forecast_metrics.json`:
+- [x] 8b.3 Save metrics to `/forecast/checkpoints/forecast_metrics.json`:
   ```json
   {
     "auroc_short": X,
@@ -158,7 +158,7 @@ This plan builds Mimamori from repo scaffold to an ablation-backed, demoable pro
     "lead_time_to_event_median": L
   }
   ```
-- [ ] 8b.4 Create `scripts/verify_stage_3.py` that:
+- [x] 8b.4 Create `scripts/verify_stage_3.py` that:
   - Loads forecaster and baseline
   - Computes AUROC for both on validation set
   - Asserts `forecaster_auroc > baseline_auroc`
