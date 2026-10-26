@@ -180,9 +180,9 @@ This plan builds Mimamori from repo scaffold to an ablation-backed, demoable pro
 ### Epic 9: Synthetic Longitudinal Causal Dataset
 
 - [x] 9.1 Design structural causal model (SCM): nodes = `sleep_quality`, `routine_deviation`, `gait_stability`, `medication_adherence_proxy`, `fall_risk`; specify edges and noise model
-- [ ] 9.2 Implement `causal/simulate.py` — generate multi-week synthetic household trajectories from the SCM
+- [x] 9.2 Implement `causal/simulate.py` — generate multi-week synthetic household trajectories from the SCM
 - [x] 9.3 Generate train/val/test splits with known ground-truth causal graph retained for evaluation
-- [ ] 9.4 Document the SCM design choices in `causal/README.md` (this is the project's most scrutinized component — document it well)
+- [x] 9.4 Document the SCM design choices in `causal/README.md` (this is the project's most scrutinized component — document it well)
 
 ### Epic 10: Causal Structure Learning & Attribution
 
