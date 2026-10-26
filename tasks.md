@@ -164,14 +164,14 @@ This plan builds Mimamori from repo scaffold to an ablation-backed, demoable pro
   - Asserts `forecaster_auroc > baseline_auroc`
   - Asserts `calibration_error < 0.15` (well-calibrated)
   - Prints all metrics
-- [ ] 8b.5 Run `python scripts/verify_stage_3.py`; if forecaster AUROC <= baseline AUROC, STOP and debug gait feature extraction or model architecture
-- [ ] 8b.6 Log to wandb artifacts: `forecaster_best.pt`, `baseline_xgboost.pkl`, all PNG plots, `forecast_metrics.json`
-- [ ] 8b.7 Create and commit `forecast/FORECASTING_REPORT.md` documenting:
+- [x] 8b.5 Run `python scripts/verify_stage_3.py`; if forecaster AUROC <= baseline AUROC, STOP and debug gait feature extraction or model architecture
+- [x] 8b.6 Log to wandb artifacts: `forecaster_best.pt`, `baseline_xgboost.pkl`, all PNG plots, `forecast_metrics.json`
+- [x] 8b.7 Create and commit `forecast/FORECASTING_REPORT.md` documenting:
   - AUROC/AUPRC for forecaster and baseline per horizon
   - Calibration errors
   - Abstention rate
   - Session-to-sequence workaround and why it was necessary
-- [ ] 8b.8 Checkpoint — Forecaster beats baseline, calibration acceptable, report complete. Do NOT proceed to causal layer until this passes.
+- [x] 8b.8 Checkpoint — Forecaster beats baseline, calibration acceptable, report complete. Do NOT proceed to causal layer until this passes.
 
 ---
 
