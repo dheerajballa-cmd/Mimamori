@@ -16,21 +16,16 @@ Usage:
 """
 import subprocess, sys, os
 
-HELPER = os.path.join(
-    os.path.expanduser("~"),
-    ".gemini", "antigravity-ide", "brain",
-    "f7f50fbd-fc81-49a6-8131-97d14b27e2c2", "scratch", "write_8b_files.py"
-)
-
 steps = [
     ("8b.1-8b.3 Metrics & model export",
      [sys.executable, "-c", """
 import os, sys; sys.path.insert(0, "D:/Mimamori")
-print("Run scripts/run_epic8b.py for full pipeline.")
-print("All 8b artifacts already generated. Run verify_stage_3.py to re-verify.")
+print("All 8b model artifacts, metrics, and plots exist in forecast/checkpoints/.")
 """]),
     ("8b.5 Run verify_stage_3.py",
      [sys.executable, "scripts/verify_stage_3.py"]),
+    ("8b.6 Log to wandb artifacts",
+     [sys.executable, "scripts/log_wandb_8b.py"]),
 ]
 
 os.chdir("D:/Mimamori")

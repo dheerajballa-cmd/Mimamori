@@ -4,10 +4,11 @@
 ### *Proactive Multi-Modal Fall-Risk Forecasting & Causal Attribution for Elderly Care*
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue.svg)](https://www.python.org/downloads/)
+[![Weights & Biases](https://img.shields.io/badge/Weights%20%26%20Biases-Tracking%20Dashboard-FFBE00?logo=weightsandbiases&logoColor=black)](https://wandb.ai/balla-dheeraj2006-srm-university/mimamori)
 [![Test Suite](https://img.shields.io/badge/pytest-49%20passed-success.svg)](tests/)
 [![Architecture](https://img.shields.io/badge/design-causal--predictive-orange.svg)](ARCHITECTURE.md)
 [![License](https://img.shields.io/badge/license-Research%20Use-lightgrey.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-Week%203%20%7C%20Epic%205%20Complete-brightgreen.svg)](tasks.md)
+[![Status](https://img.shields.io/badge/status-Week%206%20%7C%20Epic%208b%20Complete-brightgreen.svg)](tasks.md)
 
 <p align="center">
   <b>Moving eldercare from reactive post-fall detection to calibrated multi-day risk forecasting and actionable causal intervention.</b>
@@ -26,6 +27,22 @@ By unifying continuous biomechanical telemetry (wearable IMU), low-resolution pr
 2. **Causal Root-Cause Attribution**: Isolating structural drivers of elevated risk (e.g., gait degradation vs. sleep disruption vs. routine variance) using structural causal models (SCMs).
 3. **Calibrated Actionable Interventions**: Generating constrained, human-in-the-loop recommendations for caregivers with built-in uncertainty quantification.
 4. **Privacy by Design**: Ensuring zero raw RGB video or acoustic audio waveforms leave the edge boundary.
+
+---
+
+## 📊 Experiment Tracking & W&B Dashboard
+
+All representation pretraining, multi-horizon forecaster fine-tuning, verification benchmarks, and serialized model checkpoints are tracked via **Weights & Biases**:
+
+* **W&B Project Dashboard**: [https://wandb.ai/balla-dheeraj2006-srm-university/mimamori](https://wandb.ai/balla-dheeraj2006-srm-university/mimamori)
+* **Latest Stage 3 Forecasting Run**: [`epic8b-stage3-forecasting` (Run `65n2t8zq`)](https://wandb.ai/balla-dheeraj2006-srm-university/mimamori/runs/65n2t8zq)
+* **Logged Artifacts (`forecaster_stage3`)**:
+  * `forecaster_best.pt` — PyTorch checkpoint of fine-tuned multi-horizon forecaster
+  * `baseline_xgboost.pkl` — Trained same-day XGBoost baseline model
+  * `forecast_metrics.json` — Evaluated AUROC, AUPRC, ECE calibration errors, and abstention rate
+  * `forecast_metadata.json` — Architecture hyperparameters, dataset specs, and training metadata
+  * `calibration_curve_short_horizon.png` & `calibration_curve_long_horizon.png` — Reliability diagrams
+  * `auroc_comparison.png` — Forecaster vs. from-scratch baseline ROC comparisons
 
 ---
 
@@ -137,7 +154,7 @@ To prevent severe metric inflation caused by intra-subject gait/posture correlat
 ## 📈 Implementation Roadmap & Status
 
 ```
-[████████████████████░░░░░░░░░░░░░░░░░░░░] 35% Completed (Epics 1–5 / 16)
+[██████████████████████░░░░░░░░░░░░░░░░░░] 56% Completed (Epics 1–8b / 16)
 ```
 
 - [x] **Week 1: Foundation**
@@ -147,11 +164,11 @@ To prevent severe metric inflation caused by intra-subject gait/posture correlat
   - [x] Epic 3: IMU gait extraction pipeline (`gait.py`), cross-dataset validation on SisFall & KFall.
   - [x] Epic 4: Thermal frame parsing, posture categorization, RF fall classifier (`thermal.py`).
   - [x] Epic 5: Acoustic event extraction, privacy verification, balanced event classifier (`audio.py`).
-- [ ] **Weeks 3–4: Aggregation & Representation Pretraining**
-  - [ ] Epic 6: Unified `DailyFeatureVector` longitudinal aggregator (`aggregate.py`).
-  - [ ] Epic 7: Self-supervised longitudinal pretraining on NHATS actigraphy corpus.
-- [ ] **Weeks 5–6: Risk Forecasting Layer**
-  - [ ] Epic 8: Transformer multi-horizon fall risk forecasting head & proxy evaluation.
+- [x] **Weeks 3–4: Aggregation & Representation Pretraining**
+  - [x] Epic 6: Unified `DailyFeatureVector` longitudinal aggregator (`aggregate.py`).
+  - [x] Epic 7 / 7b: Self-supervised longitudinal pretraining on NHATS actigraphy corpus.
+- [x] **Weeks 5–6: Risk Forecasting Layer**
+  - [x] Epic 8 / 8b: Transformer multi-horizon fall risk forecasting head & proxy evaluation.
 - [ ] **Weeks 7–9: Causal Attribution Layer**
   - [ ] Epic 9: Synthetic longitudinal causal graph dataset & SCM specification.
   - [ ] Epic 10: Structural causal discovery (DoWhy / PC algorithm) vs. attention saliency baselines.
@@ -183,7 +200,7 @@ pip install -r requirements.txt
 ```
 
 ### 2. Execute Complete Test Suite
-Run all 49 unit tests across gait, thermal, audio, and split modules:
+Run all unit tests across gait, thermal, audio, and split modules:
 ```powershell
 pytest tests/ -v
 ```
@@ -199,6 +216,15 @@ python scripts/run_epic4.py
 
 # Verify Ambient Audio Event Classification & Privacy Check (Sounds of Home)
 python scripts/run_epic5.py
+
+# Verify Stage 2 Pretrained Representation (NHATS Silhouette Check)
+python scripts/verify_stage_2.py
+
+# Verify Stage 3 Forecaster vs Baseline (Proxy Calibration & AUROC Gate)
+python scripts/verify_stage_3.py
+
+# Log Stage 3 Models & Evaluation Artifacts to Weights & Biases
+python scripts/log_wandb_8b.py
 ```
 
 ---
