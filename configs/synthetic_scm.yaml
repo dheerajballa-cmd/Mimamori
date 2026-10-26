@@ -1,0 +1,53 @@
+# Mimamori — Synthetic SCM Dataset Configuration (Epic 9)
+# Used by: python -m causal.simulate --config configs/synthetic_scm.yaml
+
+# ─── Generation Parameters ────────────────────────────────────────────────────
+simulation:
+  n_participants: 200
+  n_days: 90              # ~13 weeks per participant
+  seed: 42
+
+# ─── Output ───────────────────────────────────────────────────────────────────
+output:
+  checkpoint_dir: "causal/checkpoints"
+
+# ─── Subject-Level Splits (no data leakage) ──────────────────────────────────
+splits:
+  val_frac: 0.15     # 30 participants
+  test_frac: 0.15    # 30 participants
+  train_frac: 0.70   # 140 participants
+
+# ─── Scenario Distribution ────────────────────────────────────────────────────
+scenario_weights:
+  stable:            0.20
+  sleep_driven:      0.20
+  routine_driven:    0.15
+  medication_driven: 0.20
+  mixed:             0.15
+  activity_driven:   0.10
+
+# ─── SCM Nodes ────────────────────────────────────────────────────────────────
+# All 5 observable nodes (matching tasks.md 9.1)
+# Structural equations and coefficients are defined in causal/simulate.py
+# See causal/README.md for full design rationale
+scm:
+  nodes:
+    - sleep_quality
+    - routine_deviation
+    - gait_stability
+    - medication_adherence_proxy
+    - fall_risk
+  edges:
+    - [sleep_quality, gait_stability]
+    - [routine_deviation, gait_stability]
+    - [routine_deviation, sleep_quality]
+    - [medication_adherence_proxy, gait_stability]
+    - [medication_adherence_proxy, routine_deviation]
+    - [gait_stability, fall_risk]
+    - [sleep_quality, fall_risk]
+
+# ─── wandb ────────────────────────────────────────────────────────────────────
+wandb:
+  project: "mimamori"
+  name: "epic9-scm-simulation"
+  tags: ["epic9", "causal", "scm", "synthetic"]
